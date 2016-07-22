@@ -6,18 +6,15 @@ import {
   Text,
   View
 } from 'react-native';
+import Api from './src/api';
 
 class weather extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pin: {
-        latitude: 0,
-        longitude: 0
-      }
-    };
-    this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this)
-  }
+  state = {
+    pin: {
+      latitude: 0,
+      longitude: 0
+    }
+  };
   render() {
     return (
       <MapView
@@ -28,7 +25,7 @@ class weather extends Component {
       </MapView>
     );
   }
-  onRegionChangeComplete(region) {
+  onRegionChangeComplete = (region) => {
     this.setState({
       pin: {
         latitude: region.latitude,
