@@ -7,6 +7,9 @@ import {
   View
 } from 'react-native';
 
+import Api from "./src/api"
+
+
 class weather extends Component {
 
   state = {
@@ -44,29 +47,11 @@ class weather extends Component {
         longitude: region.longitude
       }
     });
-    this.Api(region.latitude, region.longitude)
+    Api(region.latitude, region.longitude)
     .then((data) => {
       this.setState(data);
     });
   };
-
-  Api = (latitude, longitude) => {
-    const rootUrl = 'http://api.openweathermap.org/data/2.5/weather?APPID=30d4f5b2038a8b73139044f69026e30c';
-    const url = `${rootUrl}&lat=${latitude}&lon=${longitude}`;
-    return fetch(url)
-      .then((response) => {
-          return response.json();
-      })
-      .then((json) => {
-        return {
-          city: json.name,
-          temperature: json.main.temp,
-          description: json.weather[0].description
-        }
-      })
-      .catch((err) => console.log("Api", err));
-  }
-
 }
 
 const styles = StyleSheet.create({
