@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 
-import Api from "./src/api"
+import { Api } from "./src/api"
 
 
 class weather extends Component {
