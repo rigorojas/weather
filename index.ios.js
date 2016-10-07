@@ -6,12 +6,11 @@ import {
   Text,
   View
 } from 'react-native';
-
-import { Api } from "./src/api"
-
+import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
+import { Api } from "./src/api";
+import ControlPanel from "./src/ControlPanel";
 
 class weather extends Component {
-
   state = {
     pin: {
       latitude: 0,
@@ -22,21 +21,35 @@ class weather extends Component {
     description: ''
   };
 
+  closeControlPanel = () => {
+    this._drawer.close()
+  };
+
+  openControlPanel = () => {
+    this._drawer.open()
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <MapView
-          annotations={[this.state.pin]}
-          onRegionChangeComplete={this.onRegionChangeComplete}
-          style={styles.map}
+        <Drawer
+            ref={(ref) => this._drawer = ref}
+            openDrawerOffset={100}
+            content={<ControlPanel closeDrawer={this.closeControlPanel} />}
         >
-        </MapView>
-        <View style={styles.textWrapper}>
-          <Text style={styles.text}>{this.state.city}</Text>
-          <Text style={styles.text}>{this.state.temperature}</Text>
-          <Text style={styles.text}>{this.state.description}</Text>
-        </View>
-      </View>
+          <View style={styles.container}>
+            <MapView
+              annotations={[this.state.pin]}
+              onRegionChangeComplete={this.onRegionChangeComplete}
+              style={styles.map}
+            >
+            </MapView>
+            <View style={styles.textWrapper}>
+              <Text style={styles.text}>{this.state.city}</Text>
+              <Text style={styles.text}>{this.state.temperature}</Text>
+              <Text style={styles.text} onPress={this.openControlPanel}>{this.state.description}</Text>
+            </View>
+          </View>
+        </Drawer>
     );
   }
 
