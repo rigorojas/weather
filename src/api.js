@@ -6,7 +6,7 @@ let kelvinToF = (kelvin) => {
   return Math.round((kelvin - 273.15) * 1.8 +32) + ' ˚F';
 };
 
-export function Api(latitude, longitude) {
+let Api = (latitude, longitude) => {
   const url = `${rootUrl}&lat=${latitude}&lon=${longitude}`;
   return fetch(url)
     .then((response) => {

@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-export default class ControlPanel extends Component {
+export class ControlPanel extends Component {
     static propTypes = {
        closeDrawer: React.PropTypes.func.isRequired
     };

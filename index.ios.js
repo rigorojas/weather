@@ -7,8 +7,8 @@ import {
   View
 } from 'react-native';
 import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
-import { Api } from "./src/api";
-import ControlPanel from "./src/ControlPanel";
+import Api from "./src/api";
+import {ControlPanel} from "./src/ControlPanel";
 
 class weather extends Component {
   state = {
