@@ -41,38 +41,38 @@ class Temperature extends Component {
         );
     }
 
-  onRegionChangeComplete = (region) => {
-    this.setState({
-      pin: {
-        latitude: region.latitude,
-        longitude: region.longitude
-      }
-    });
-    Api(region.latitude, region.longitude)
-    .then((data) => {
-      this.setState(data);
-    });
-  };
+    onRegionChangeComplete = (region) => {
+        this.setState({
+            pin: {
+                latitude: region.latitude,
+                longitude: region.longitude
+            }
+        });
+        Api(region.latitude, region.longitude)
+        .then((data) => {
+            this.setState(data);
+        });
+    };
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF'
-  },
-  map: {
-    flex: 2,
-    marginTop: 30
-  },
-  textWrapper: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  text: {
-    fontSize: 30
-  }
+    container:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        backgroundColor: '#F5FCFF'
+    },
+    map: {
+        flex: 2,
+        marginTop: 30
+    },
+    textWrapper: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    text: {
+        fontSize: 30
+    }
 });
 
 export default Temperature;
