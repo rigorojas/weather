@@ -23,9 +23,10 @@ class weather extends Component {
     };
 
     state = {
+        currentRoute: null,
         routes: {
-            home: {
-                title: 'Home',
+            temperature: {
+                title: 'Temperature',
                 component: Temperature,
                 passProps: {
                     openDrawer: this.openControlPanel
@@ -41,20 +42,30 @@ class weather extends Component {
         }
     };
 
+    componentWillMount = () => {
+        this.setCurrentRoute("temperature");
+    }
+
+    setCurrentRoute = (route) => {
+        this.setState({
+            currentRoute: this.state.routes[route]
+        });
+    }
+
     getNav = () => {
         return (
             <View>
-                <Text style={{textAlign: "center"}}>This is my title</Text>
+                <Text>This is my title</Text>
             </View>
         );
-    }
+    };
 
     renderScene = (route, navigator) => {
         return <route.component
             {...route.passProps}
             navigator={navigator}
         />
-    }
+    };
 
     render() {
         return (
@@ -68,12 +79,12 @@ class weather extends Component {
                 <Navigator //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
                     ref={component => this._navigator = component}
                     navigationBar={this.getNav()}
-                    initialRoute={this.state.routes.blank}
+                    initialRoute={this.state.currentRoute}
                     renderScene={this.renderScene}
                 />
             </Drawer>
         );
-    }
+    };
 }
 
 AppRegistry.registerComponent('weather', () => weather);
