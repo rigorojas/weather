@@ -10,6 +10,7 @@ import {
 import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
 import {ControlPanel} from "./src/Components/ControlPanel/ControlPanel"; //source: https://github.com/root-two/react-native-drawer
 import Temperature from "./src/Views/Temperature/Temperature";
+import Blank from "./src/Views/Blank/Blank";
 
 class weather extends Component {
 
@@ -26,6 +27,13 @@ class weather extends Component {
             home: {
                 title: 'Home',
                 component: Temperature,
+                passProps: {
+                    openDrawer: this.openControlPanel
+                }
+            },
+            blank: {
+                title: 'Blank',
+                component: Blank,
                 passProps: {
                     openDrawer: this.openControlPanel
                 }
@@ -52,7 +60,7 @@ class weather extends Component {
         return (
             <Drawer
                 ref={(ref) => this._drawer = ref}
-                openDrawerOffset={100}
+                openDrawerOffset={60}
                 content={<ControlPanel
                     closeDrawer={this.closeControlPanel}
                 />}
@@ -60,7 +68,7 @@ class weather extends Component {
                 <Navigator //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
                     ref={component => this._navigator = component}
                     navigationBar={this.getNav()}
-                    initialRoute={this.state.routes.home}
+                    initialRoute={this.state.routes.blank}
                     renderScene={this.renderScene}
                 />
             </Drawer>
