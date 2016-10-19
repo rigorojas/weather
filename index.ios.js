@@ -71,6 +71,9 @@ class weather extends Component {
         return (
             <Drawer
                 ref={(ref) => this._drawer = ref}
+                captureGestures
+                negotiatePan={false}
+                side="right"
                 openDrawerOffset={60}
                 content={<ControlPanel
                     closeDrawer={this.closeControlPanel}
