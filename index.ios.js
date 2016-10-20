@@ -26,6 +26,7 @@ class weather extends Component {
         currentRoute: null,
         routes: {
             temperature: {
+                id: 'temperature',
                 title: 'Temperature',
                 component: Temperature,
                 passProps: {
@@ -33,6 +34,7 @@ class weather extends Component {
                 }
             },
             blank: {
+                id: 'blank',
                 title: 'Blank',
                 component: Blank,
                 passProps: {
@@ -43,12 +45,12 @@ class weather extends Component {
     };
 
     componentWillMount = () => {
-        this.setCurrentRoute("temperature");
+        this.setCurrentRoute("Blank");
     }
 
     setCurrentRoute = (route) => {
         this.setState({
-            currentRoute: this.state.routes[route]
+            currentRoute: route
         });
     }
 
@@ -80,14 +82,32 @@ class weather extends Component {
                 />}
             >
                 <Navigator //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
-                    ref={component => this._navigator = component}
-                    navigationBar={this.getNav()}
-                    initialRoute={this.state.currentRoute}
-                    renderScene={this.renderScene}
+                    initialRoute={{
+                        id: this.state.currentRoute
+                    }}
+                    renderScene={
+                        this.navigatorRenderScene
+                    }
                 />
             </Drawer>
         );
     };
+
+    navigatorRenderScene = (route, navigator) => {
+        _navigator = navigator;
+        switch (route.id) {
+            case 'Blank':
+                return(<Blank navigator={navigator} title="Blank" />);
+            case 'Temperature':
+                return(<Temperature
+                    navigator={navigator}
+                    title="Blank"
+                    openDrawer={this.openControlPanel}
+                />);
+        }
+    }
+
+
 }
 
 AppRegistry.registerComponent('weather', () => weather);

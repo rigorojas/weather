@@ -3,15 +3,25 @@ import {
     StyleSheet,
     Text,
     View,
+    TouchableHighlight
 } from 'react-native';
 
 class Blank extends Component {
+
+    onButtonPress = () => {
+        this.props.navigator.push({
+            id: 'Temperature'
+        });
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Blank View</Text>
                 <Text style={styles.text}>Nothing to see here</Text>
-                <Text style={styles.text}>Move it along</Text>
+                <TouchableHighlight onPress={this.onButtonPress.bind(this)}>
+                    <Text style={styles.text}>Move it along</Text>
+                </TouchableHighlight>
             </View>
         );
     }
