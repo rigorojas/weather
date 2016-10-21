@@ -10,7 +10,10 @@ class Blank extends Component {
 
     onButtonPress = () => {
         this.props.navigator.push({
-            id: 'Temperature'
+            component: "Temperature",
+            title: "Temperature",
+            passProps: {
+            }
         });
     }
 

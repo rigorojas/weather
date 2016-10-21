@@ -13,6 +13,9 @@ import Temperature from "./src/Views/Temperature/Temperature";
 import Blank from "./src/Views/Blank/Blank";
 
 class weather extends Component {
+    state = {
+        currentRoute: "Blank"
+    };
 
     closeControlPanel = () => {
         this._drawer.close()
@@ -22,38 +25,6 @@ class weather extends Component {
         this._drawer.open()
     };
 
-    state = {
-        currentRoute: null,
-        routes: {
-            temperature: {
-                id: 'temperature',
-                title: 'Temperature',
-                component: Temperature,
-                passProps: {
-                    openDrawer: this.openControlPanel
-                }
-            },
-            blank: {
-                id: 'blank',
-                title: 'Blank',
-                component: Blank,
-                passProps: {
-                    openDrawer: this.openControlPanel
-                }
-            }
-        }
-    };
-
-    componentWillMount = () => {
-        this.setCurrentRoute("Blank");
-    }
-
-    setCurrentRoute = (route) => {
-        this.setState({
-            currentRoute: route
-        });
-    }
-
     getNav = () => {
         return (
             <View>
@@ -62,13 +33,7 @@ class weather extends Component {
         );
     };
 
-    renderScene = (route, navigator) => {
-        return <route.component
-            {...route.passProps}
-            navigator={navigator}
-        />
-    };
-
+    //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
     render() {
         return (
             <Drawer
@@ -81,33 +46,41 @@ class weather extends Component {
                     closeDrawer={this.closeControlPanel}
                 />}
             >
-                <Navigator //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
-                    initialRoute={{
-                        id: this.state.currentRoute
-                    }}
-                    renderScene={
-                        this.navigatorRenderScene
+                <Navigator
+                    initialRoute={
+                        {
+                            component: this.state.currentRoute
+                        }
                     }
+                    renderScene={this.renderScene}
                 />
             </Drawer>
         );
     };
 
-    navigatorRenderScene = (route, navigator) => {
-        _navigator = navigator;
-        switch (route.id) {
+    renderScene = (route, navigator) => {
+        console.log("route: ", route)
+        console.log("navigator: ", navigator)
+        const Component = route.component;
+        console.log("Component: ", Component)
+		return(
+            <{Component} {...route.passProps} navigator={navigator} route={route} />
+        );
+    };
+
+    renderSceneX = (route, navigator) => {
+        switch (route.component) {
             case 'Blank':
-                return(<Blank navigator={navigator} title="Blank" />);
+                return(<Blank
+                    navigator={navigator}
+                />);
             case 'Temperature':
                 return(<Temperature
                     navigator={navigator}
-                    title="Blank"
                     openDrawer={this.openControlPanel}
                 />);
         }
     }
-
-
 }
 
 AppRegistry.registerComponent('weather', () => weather);
