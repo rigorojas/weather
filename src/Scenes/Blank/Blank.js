@@ -5,22 +5,24 @@ import {
     View,
     TouchableHighlight
 } from 'react-native';
+import Temperature from "../Temperature/Temperature";
 
 class Blank extends Component {
 
     onButtonPress = () => {
         this.props.navigator.push({
-            id: 'Temperature'
+            scene: Temperature,
+            title: "Temperature",
+            passProps: {
+            }
         });
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Blank View</Text>
-                <Text style={styles.text}>Nothing to see here</Text>
                 <TouchableHighlight onPress={this.onButtonPress.bind(this)}>
-                    <Text style={styles.text}>Move it along</Text>
+                    <Text style={styles.text}>Temperature</Text>
                 </TouchableHighlight>
             </View>
         );
@@ -29,10 +31,14 @@ class Blank extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "pink"
+        paddingTop: 28,
+        backgroundColor: "#ccc"
     },
     text: {
-        color: "green"
+        backgroundColor: "#ddd",
+        fontSize: 50,
+        color: "#333",
+        textAlign: "center",
     }
 });
 

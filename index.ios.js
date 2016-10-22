@@ -7,12 +7,16 @@ import {
     Text,
     View
 } from 'react-native';
+//watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache
 import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
 import {ControlPanel} from "./src/Components/ControlPanel/ControlPanel"; //source: https://github.com/root-two/react-native-drawer
-import Temperature from "./src/Views/Temperature/Temperature";
-import Blank from "./src/Views/Blank/Blank";
+import Blank from "./src/Scenes/Blank/Blank";
+
 
 class weather extends Component {
+    state = {
+        currentRoute: Blank
+    };
 
     closeControlPanel = () => {
         this._drawer.close()
@@ -22,38 +26,6 @@ class weather extends Component {
         this._drawer.open()
     };
 
-    state = {
-        currentRoute: null,
-        routes: {
-            temperature: {
-                id: 'temperature',
-                title: 'Temperature',
-                component: Temperature,
-                passProps: {
-                    openDrawer: this.openControlPanel
-                }
-            },
-            blank: {
-                id: 'blank',
-                title: 'Blank',
-                component: Blank,
-                passProps: {
-                    openDrawer: this.openControlPanel
-                }
-            }
-        }
-    };
-
-    componentWillMount = () => {
-        this.setCurrentRoute("Blank");
-    }
-
-    setCurrentRoute = (route) => {
-        this.setState({
-            currentRoute: route
-        });
-    }
-
     getNav = () => {
         return (
             <View>
@@ -61,14 +33,7 @@ class weather extends Component {
             </View>
         );
     };
-
-    renderScene = (route, navigator) => {
-        return <route.component
-            {...route.passProps}
-            navigator={navigator}
-        />
-    };
-
+    //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
     render() {
         return (
             <Drawer
@@ -77,37 +42,29 @@ class weather extends Component {
                 negotiatePan={false}
                 side="right"
                 openDrawerOffset={60}
-                content={<ControlPanel
-                    closeDrawer={this.closeControlPanel}
-                />}
+                content={<ControlPanel closeDrawer={this.closeControlPanel} />}
             >
-                <Navigator //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
-                    initialRoute={{
-                        id: this.state.currentRoute
-                    }}
-                    renderScene={
-                        this.navigatorRenderScene
+                <Navigator
+                    initialRoute={
+                        {
+                            scene: this.state.currentRoute
+                        }
                     }
+                    renderScene={this.renderScene}
                 />
             </Drawer>
         );
     };
 
-    navigatorRenderScene = (route, navigator) => {
-        _navigator = navigator;
-        switch (route.id) {
-            case 'Blank':
-                return(<Blank navigator={navigator} title="Blank" />);
-            case 'Temperature':
-                return(<Temperature
-                    navigator={navigator}
-                    title="Blank"
-                    openDrawer={this.openControlPanel}
-                />);
-        }
-    }
-
-
+    renderScene = (route, navigator) => {
+		return(
+            <route.scene
+                {...route.passProps}
+                navigator={navigator}
+                route={route}
+            />
+        );
+    };
 }
 
 AppRegistry.registerComponent('weather', () => weather);
