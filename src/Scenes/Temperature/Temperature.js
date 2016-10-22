@@ -7,35 +7,34 @@ import {
 } from 'react-native';
 import Api from "../../Components/OpenWeatherMap/Api";
 
-class Temperature extends Component {
-
+export default class Temperature extends Component {
     static propTypes = {
-       openDrawer: React.PropTypes.func.isRequired
+       openDrawer: React.PropTypes.func.isRequired,
     };
 
     state = {
         pin: {
           latitude: 0,
-          longitude: 0
+          longitude: 0,
         },
         city: '',
         temperature: '',
-        description: ''
+        description: '',
      };
 
     render() {
         return (
             <View style={styles.container}>
                 <MapView
-                  annotations={[this.state.pin]}
-                  onRegionChangeComplete={this.onRegionChangeComplete}
-                  style={styles.map}
+                    annotations={[this.state.pin]}
+                    onRegionChangeComplete={this.onRegionChangeComplete}
+                    style={styles.map}
                 >
                 </MapView>
                 <View style={styles.textWrapper}>
-                  <Text style={styles.text}>{this.state.city}</Text>
-                  <Text style={styles.text}>{this.state.temperature}</Text>
-                  <Text style={styles.text} onPress={this.props.openDrawer}>{this.state.description}</Text>
+                    <Text style={styles.text}>{this.state.city}</Text>
+                    <Text style={styles.text}>{this.state.temperature}</Text>
+                    <Text style={styles.text} onPress={this.props.openDrawer}>{this.state.description}</Text>
                 </View>
             </View>
         );
@@ -45,7 +44,7 @@ class Temperature extends Component {
         this.setState({
             pin: {
                 latitude: region.latitude,
-                longitude: region.longitude
+                longitude: region.longitude,
             }
         });
         Api(region.latitude, region.longitude)
@@ -60,19 +59,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'stretch',
-        backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF',
     },
     map: {
         flex: 2,
-        marginTop: 30
+        marginTop: 30,
     },
     textWrapper: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
-        fontSize: 30
+        fontSize: 30,
     }
 });
-
-export default Temperature;

@@ -7,8 +7,7 @@ import {
 } from 'react-native';
 import Temperature from "../Temperature/Temperature";
 
-class Blank extends Component {
-
+export default class Blank extends Component {
     onButtonPress = () => {
         this.props.navigator.push({
             scene: Temperature,
@@ -32,14 +31,12 @@ class Blank extends Component {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 28,
-        backgroundColor: "#ccc"
+        backgroundColor: "#ccc",
     },
     text: {
         backgroundColor: "#ddd",
         fontSize: 50,
         color: "#333",
         textAlign: "center",
-    }
+    },
 });
-
-export default Blank;
