@@ -6,12 +6,9 @@ import {
   View
 } from 'react-native';
 import Api from "../../Components/OpenWeatherMap/Api";
+import TitleBar from "../../SharedComponents/TitleBar/TitleBar";
 
 export default class Temperature extends Component {
-    static propTypes = {
-       openDrawer: React.PropTypes.func.isRequired,
-    };
-
     state = {
         pin: {
           latitude: 0,
@@ -23,8 +20,10 @@ export default class Temperature extends Component {
      };
 
     render() {
+        const {openDrawerMenu} = this.props;
         return (
             <View style={styles.container}>
+                <TitleBar openDrawerMenu={openDrawerMenu} />
                 <MapView
                     annotations={[this.state.pin]}
                     onRegionChangeComplete={this.onRegionChangeComplete}
@@ -34,7 +33,7 @@ export default class Temperature extends Component {
                 <View style={styles.textWrapper}>
                     <Text style={styles.text}>{this.state.city}</Text>
                     <Text style={styles.text}>{this.state.temperature}</Text>
-                    <Text style={styles.text} onPress={this.props.openDrawer}>{this.state.description}</Text>
+                    <Text style={styles.text} >{this.state.description}</Text>
                 </View>
             </View>
         );

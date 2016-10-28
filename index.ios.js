@@ -9,21 +9,19 @@ import {
 } from 'react-native';
 //watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache
 import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
-import {ControlPanel} from "./src/Components/ControlPanel/ControlPanel"; //source: https://github.com/root-two/react-native-drawer
+import {ControlPanel} from "./src/SharedComponents/ControlPanel/ControlPanel"; //source: https://github.com/root-two/react-native-drawer
 import Blank from "./src/Scenes/Blank/Blank";
 
 
 class weather extends Component {
-    state = {
-        currentRoute: Blank
+    state = {};
+
+    closeDrawerMenu= () => {
+        this._drawer.close();
     };
 
-    closeControlPanel = () => {
-        this._drawer.close()
-    };
-
-    openControlPanel = () => {
-        this._drawer.open()
+    openDrawerMenu= () => {
+        this._drawer.open();
     };
 
     getNav = () => {
@@ -42,12 +40,15 @@ class weather extends Component {
                 negotiatePan={false}
                 side="right"
                 openDrawerOffset={60}
-                content={<ControlPanel closeDrawer={this.closeControlPanel} />}
+                content={<ControlPanel closeDrawer={this.closeDrawerMenu} />}
             >
                 <Navigator
                     initialRoute={
                         {
-                            scene: this.state.currentRoute
+                            scene: Blank,
+                            passProps: {
+                                openDrawerMenu: this.openDrawerMenu
+                            }
                         }
                     }
                     renderScene={this.renderScene}

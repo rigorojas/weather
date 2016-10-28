@@ -5,7 +5,10 @@ import {
     View,
     TouchableHighlight
 } from 'react-native';
+
+import TitleBar from "../../SharedComponents/TitleBar/TitleBar";
 import Temperature from "../Temperature/Temperature";
+
 
 export default class Blank extends Component {
     onButtonPress = () => {
@@ -18,8 +21,10 @@ export default class Blank extends Component {
     }
 
     render() {
+        const {openDrawerMenu} = this.props;
         return (
             <View style={styles.container}>
+                <TitleBar openDrawerMenu={openDrawerMenu} />
                 <TouchableHighlight onPress={this.onButtonPress.bind(this)}>
                     <Text style={styles.text}>Temperature</Text>
                 </TouchableHighlight>
