@@ -16,54 +16,50 @@ import Blank from "./src/Scenes/Blank/Blank";
 class weather extends Component {
     state = {};
 
-    closeDrawerMenu= () => {
+    closeDrawerMenu = () => {
         this._drawer.close();
     };
 
-    openDrawerMenu= () => {
+    openDrawerMenu = () => {
         this._drawer.open();
     };
 
-    getNav = () => {
-        return (
-            <View>
-                <Text>This is my title</Text>
-            </View>
-        );
-    };
     //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
     render() {
         return (
-            <Drawer
-                ref={(ref) => this._drawer = ref}
-                captureGestures
-                negotiatePan={false}
-                side="right"
-                openDrawerOffset={60}
-                content={<DrawerMenu closeDrawer={this.closeDrawerMenu} />}
-            >
-                <Navigator
-                    initialRoute={
-                        {
-                            scene: Blank,
-                            passProps: {
-                                openDrawerMenu: this.openDrawerMenu
-                            }
+            <Navigator
+                initialRoute={
+                    {
+                        scene: Blank,
+                        passProps: {
+                            openDrawerMenu: this.openDrawerMenu
                         }
                     }
-                    renderScene={this.renderScene}
-                />
-            </Drawer>
+                }
+                renderScene={this.renderScene}
+            />
         );
     };
 
     renderScene = (route, navigator) => {
 		return(
-            <route.scene
-                {...route.passProps}
-                navigator={navigator}
-                route={route}
-            />
+            <Drawer
+                ref={(ref) => this._drawer = ref}
+                captureGestures
+                negotiatePan={false}
+                side="left"
+                openDrawerOffset={60}
+                content={<DrawerMenu
+                    closeDrawer={this.closeDrawerMenu}
+                    navigator={navigator}
+                />}
+            >
+                <route.scene
+                    {...route.passProps}
+                    route={route}
+                    navigator={navigator}
+                />
+            </Drawer>
         );
     };
 }

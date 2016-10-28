@@ -7,15 +7,33 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
+import Temperature from "../../Scenes/Temperature/Temperature";
+
 export class DrawerMenu extends Component {
     static propTypes = {
-       closeDrawer: React.PropTypes.func.isRequired
+        navigator: React.PropTypes.object.isRequired,
+        closeDrawer: React.PropTypes.func.isRequired
     };
+
+    onButtonPressTemperature = () => {
+        this.props.navigator.push({
+            scene: Temperature,
+            title: "Temperature",
+            passProps: {
+            }
+        });
+    }
 
     render() {
         return (
             <ScrollView style={styles.container}>
-                <Text style={styles.controlText}>Major US Cities</Text>
+                <Text style={styles.controlText}>Please Select a Project</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.onButtonPressTemperature}
+                >
+                    <Text>Temperature</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this.props.closeDrawer}
