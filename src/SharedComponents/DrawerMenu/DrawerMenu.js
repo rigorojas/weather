@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-export class ControlPanel extends Component {
+export class DrawerMenu extends Component {
     static propTypes = {
        closeDrawer: React.PropTypes.func.isRequired
     };

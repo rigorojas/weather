@@ -9,7 +9,6 @@ import {
 import TitleBar from "../../SharedComponents/TitleBar/TitleBar";
 import Temperature from "../Temperature/Temperature";
 
-
 export default class Blank extends Component {
     onButtonPress = () => {
         this.props.navigator.push({

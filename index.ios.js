@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 //watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache
 import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
-import {ControlPanel} from "./src/SharedComponents/ControlPanel/ControlPanel"; //source: https://github.com/root-two/react-native-drawer
+import {DrawerMenu} from "./src/SharedComponents/DrawerMenu/DrawerMenu"; //source: https://github.com/root-two/react-native-drawer
 import Blank from "./src/Scenes/Blank/Blank";
 
 
@@ -40,7 +40,7 @@ class weather extends Component {
                 negotiatePan={false}
                 side="right"
                 openDrawerOffset={60}
-                content={<ControlPanel closeDrawer={this.closeDrawerMenu} />}
+                content={<DrawerMenu closeDrawer={this.closeDrawerMenu} />}
             >
                 <Navigator
                     initialRoute={
