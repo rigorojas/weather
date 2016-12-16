@@ -1,67 +1,52 @@
-import React, { Component } from 'react';
-import {
-    AppRegistry,
-    Navigator,
-    MapView,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
-//watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache
-import Drawer from 'react-native-drawer'; //source: https://github.com/root-two/react-native-drawer
-import {DrawerMenu} from "./src/SharedComponents/DrawerMenu/DrawerMenu"; //source: https://github.com/root-two/react-native-drawer
-import Blank from "./src/Scenes/Blank/Blank";
+import React from 'react';
+import {AppRegistry, StyleSheet, Text} from 'react-native';
+import {Router, Scene, Actions, DefaultRenderer, Reducer} from 'react-native-router-flux';
+import {Side} from './src/SharedComponents/SideMenu/Side.js';
+import Blank from "./src/Scenes/Blank/Blank.js";
+import Temperature from "./src/Scenes/Temperature/Temperature.js";
 
+const reducerCreate = params => {
+    const defaultReducer = Reducer(params);
+    return (state, action)=>{
+        return defaultReducer(state, action);
+    }
+};
 
-class weather extends Component {
+class weather extends React.Component {
     state = {};
-
-    closeDrawerMenu = () => {
-        this._drawer.close();
-    };
-
-    openDrawerMenu = () => {
-        this._drawer.open();
-    };
-
-    //https://www.lullabot.com/articles/navigation-and-deep-linking-with-react-native
     render() {
         return (
-            <Navigator
-                initialRoute={
-                    {
-                        scene: Blank,
-                        passProps: {
-                            openDrawerMenu: this.openDrawerMenu
-                        }
-                    }
-                }
-                renderScene={this.renderScene}
-            />
-        );
-    };
-
-    renderScene = (route, navigator) => {
-		return(
-            <Drawer
-                ref={(ref) => this._drawer = ref}
-                captureGestures
-                negotiatePan={false}
-                side="left"
-                openDrawerOffset={60}
-                content={<DrawerMenu
-                    closeDrawer={this.closeDrawerMenu}
-                    navigator={navigator}
-                />}
+            <Router
+                createReducer={reducerCreate}
+                sceneStyle={{backgroundColor:'#99F799'}}
             >
-                <route.scene
-                    {...route.passProps}
-                    route={route}
-                    navigator={navigator}
-                />
-            </Drawer>
+                <Scene
+                    key="Drawer"
+                    component={Side}
+                    open={false}
+                >
+                    <Scene
+                        key="root"
+                    >
+                        <Scene
+                            key="Blank"
+                            component={Blank}
+                            title="Blank"
+                            hideNavBar={true}
+                            initial={true}
+                        />
+                        <Scene
+                            key="Temperature"
+                            component={Temperature}
+                            title="Temperature"
+                            hideNavBar={false}
+                        />
+                    </Scene>
+                </Scene>
+            </Router>
         );
     };
 }
 
 AppRegistry.registerComponent('weather', () => weather);
+//watchman watch-del-all && rm -rf node_modules && npm install && npm start -- --reset-cache

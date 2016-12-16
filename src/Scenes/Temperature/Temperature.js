@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-  MapView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {MapView, StyleSheet, Text, View} from 'react-native';
 import Api from "../../Components/OpenWeatherMap/Api";
-import TitleBar from "../../SharedComponents/TitleBar/TitleBar";
 
 export default class Temperature extends Component {
     state = {
@@ -23,7 +17,6 @@ export default class Temperature extends Component {
         const {openDrawerMenu} = this.props;
         return (
             <View style={styles.container}>
-                <TitleBar openDrawerMenu={openDrawerMenu} />
                 <MapView
                     annotations={[this.state.pin]}
                     onRegionChangeComplete={this.onRegionChangeComplete}

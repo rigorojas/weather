@@ -1,45 +1,33 @@
 import React, { Component } from 'React';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight
-} from 'react-native';
-
-import TitleBar from "../../SharedComponents/TitleBar/TitleBar";
+import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import {Actions} from 'react-native-router-flux';
+import styles from "./styles";
+import Button from 'react-native-button';
 
 export default class Blank extends Component {
-    onButtonPress = () => {
-        this.props.navigator.push({
-            scene: Temperature,
-            title: "Temperature",
-            passProps: {
-            }
-        });
-    }
-
     render() {
-        const {openDrawerMenu} = this.props;
-        return (
-            <View style={styles.container}>
-                <TitleBar openDrawerMenu={openDrawerMenu} />
-                <TouchableHighlight onPress={this.onButtonPress.bind(this)}>
-                    <Text style={styles.text}>Temperature</Text>
-                </TouchableHighlight>
-            </View>
-        );
+      return (
+        <View style={{margin: 128}}>
+            <Button
+                onPress={() => {
+                    Actions.refresh({
+                        key: 'Drawer',
+                        open: value => !value
+                    })
+                }}
+                containerStyle={styles.buttonContainer}
+                style={styles.button}
+            >
+                Go To Drawer
+            </Button>
+            <Button
+                onPress={() => Actions.Temperature()}
+                containerStyle={styles.buttonContainer}
+                style={styles.button}
+            >
+                Temperature Page
+            </Button>
+        </View>
+      )
     }
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 28,
-        backgroundColor: "#ccc",
-    },
-    text: {
-        backgroundColor: "#ddd",
-        fontSize: 50,
-        color: "#333",
-        textAlign: "center",
-    },
-});
