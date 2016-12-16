@@ -8,7 +8,6 @@ export class Side extends React.Component {
     render(){
         const state = this.props.navigationState;
         const children = this.props.navigationState.children;
-        console.log("++++",state);
         return(
             <Drawer
                 ref="navigation"

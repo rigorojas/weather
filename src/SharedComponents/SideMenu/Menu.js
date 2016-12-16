@@ -10,6 +10,16 @@ export class Menu extends React.Component {
                     Please Select a Project
                 </Text>
                 <TouchableOpacity
+                    onPress={() => {
+                        setTimeout(
+                            () => Actions.Temperature(),
+                            0
+                        );
+                        Actions.refresh({
+                            key: 'Drawer',
+                            open: false
+                        });
+                    }}
                     style={styles.button}
                 >
                     <Text>Temperature</Text>

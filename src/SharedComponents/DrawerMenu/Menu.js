@@ -10,6 +10,7 @@ export class Menu extends React.Component {
                     Please Select a Project
                 </Text>
                 <TouchableOpacity
+                    onPress={() => Actions.Temperature()}
                     style={styles.button}
                 >
                     <Text>Temperature</Text>
